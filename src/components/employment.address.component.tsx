@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import logo from '../logo.png';
-import '../App.css';
+import '../App.scss';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -60,18 +60,18 @@ const EmploymentAddress = ({ streetNumber, streetName, city, code, state, curren
                         <div className="p-fluid p-formgrid p-grid">
                             <div className="p-field p-col-12 p-md-2">
                                 <label htmlFor="streetNumber">Street Number</label>
-                                <InputText id="streetNumber" type="text" value={streetNumberValue} onChange={(e) => setStreetNumberValue(e.target.value)} />
+                                <InputText id="streetNumber" type="text" value={streetNumberValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setStreetNumberValue(e.target.value)} />
                                 {streetNumberValue && streetNumberValue.length < 3 && <small id="username-help" style={{ color: 'red' }} >Street Number should have minium 3 charcters.</small>}
                             </div>
                             <div className="p-field p-col-12 p-md-4">
                                 <label htmlFor="streetName">Street Name</label>
-                                <InputText id="streetName" type="text" value={streetNameValue} onChange={(e) => setStreetNameValue(e.target.value)} />
+                                <InputText id="streetName" type="text" value={streetNameValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setStreetNameValue(e.target.value)} />
                                 {streetNameValue && streetNameValue.length < 3 && <small id="username-help" style={{ color: 'red' }} >Street Name should have minium 3 charcters.</small>}
                             </div>
 
                             <div className="p-field p-col-12 p-md-5">
                                 <label htmlFor="city">City</label>
-                                <InputText id="city" type="text" value={cityValue} onChange={(e) => setCityValue(e.target.value)} />
+                                <InputText id="city" type="text" value={cityValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCityValue(e.target.value)} />
                                 {cityValue && cityValue.length < 3 && <small id="username-help" style={{ color: 'red' }} >City should have minium 3 charcters.</small>}
                             </div>
                             <div className="p-field p-col-12 p-md-3">
@@ -80,16 +80,16 @@ const EmploymentAddress = ({ streetNumber, streetName, city, code, state, curren
                             </div>
                             <div className="p-field p-col-12 p-md-3">
                                 <label htmlFor="zip">Code</label>
-                                <InputText id="zip" type="text" value={codeValue} onChange={(e) => setCodeValue(e.target.value)} />
+                                <InputText id="zip" type="text" value={codeValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCodeValue(e.target.value)} />
                                 {codeValue && codeValue.length < 3 && <small id="username-help" style={{ color: 'red' }} >Code should have minium 3 charcters.</small>}
                             </div>
                             <div className="p-field p-col-12 p-md-3">
                                 <label htmlFor="currentEployment">Current Employment</label>
-                                <InputText id="currentEployment" type="text" value={currentEmploymentValue} onChange={(e) => setCurrentEmploymentValue(e.target.value)} />
+                                <InputText id="currentEployment" type="text" value={currentEmploymentValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCurrentEmploymentValue(e.target.value)} />
                             </div>
                             <div className="p-field p-col-12 p-md-3">
                                 <label htmlFor="previousEmploment">Previous Employment Type</label>
-                                <InputText id="previousEmploment" type="text" value={previousEmplomentValue} onChange={(e) => setPreviousEmplomentValue(e.target.value)} />
+                                <InputText id="previousEmploment" type="text" value={previousEmplomentValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPreviousEmplomentValue(e.target.value)} />
                             </div>
                         </div>
                     </Panel>

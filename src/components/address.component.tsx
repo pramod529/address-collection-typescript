@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
 import logo from '../logo.png';
-import '../App.css';
+import '../App.scss';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { InputText } from 'primereact/inputtext';
 import { connect } from 'react-redux'
-import submitPropAddress from '../action/propertyAddressAction'
+import submitAddress from '../action/addressAction'
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
 import { Dropdown } from 'primereact/dropdown';
-import { Message } from 'primereact/message';
-const PropertyAddress = ({ streetNumber,streetName, city, code,state, employment, dispatch, history }) => {
+const Address = ({ streetNumber,streetName, city, code,state, dispatch, history }) => {
     console.log('props', streetNumber)
     const [streetNumberValue, setStreetNumberValue] = useState(streetNumber);
     const [streetNameValue, setStreetNameValue] = useState(streetName);
     const [cityValue, setCityValue] = useState(city);
     const [codeValue, setCodeValue] = useState(code);
     const [selectedState, setSelectedState] = useState(state);
-    const [selectedEmployment, setSelectedEmployment] = useState(employment);
-    const [businessvalidationFlag, setBusinessvalidationFlag] = useState(false);
     /*useEffect(()=>{
         setFirstNameValue(firstName)
     },[])*/
@@ -33,31 +30,14 @@ const PropertyAddress = ({ streetNumber,streetName, city, code,state, employment
         { name: 'Ohio', value: 'Ohio' },
         { name: 'Washington', value: 'Washington' }
     ];
-    let employmentTypes = [
-        { name: 'Employed', value: 'Employed' },
-        { name: 'Student', value: 'Student' },
-        { name: 'Retired', value: 'Retired' },
-    ];
-    const submitPropertyAddress = () => {
-        setBusinessvalidationFlag(false);
-        if(selectedState.value !== 'Quebec' && selectedEmployment.value === 'Employed') {
-            dispatch(submitPropAddress({streetNumber:streetNumberValue,streetName:streetNameValue,city:cityValue,state:selectedState,code:codeValue,employment:selectedEmployment}));
-            history.push("/employmentAddress")
-        } else {
-            setBusinessvalidationFlag(true);
-        }
-
-    }
-    const back = () => {
-        history.push("/")
+    const submit = () => {
+        dispatch(submitAddress({streetNumber:streetNumberValue,streetName:streetNameValue,city:cityValue,state:selectedState,code:codeValue}))
+        history.push("/propertyAddress")
     }
     const onStateChange = (e) => {
         setSelectedState(e.value);
     }
-    const onEmploymentChange = (e) => {
-        setSelectedEmployment(e.value);
-    }
-    const validations = streetNumberValue !== '' && streetNumberValue.length > 2 && streetNameValue !== '' && streetNameValue.length > 2 && cityValue !== '' && cityValue.length > 2 && codeValue !== '' && codeValue.length > 2  && selectedState && selectedState.value !== '' && selectedEmployment && selectedEmployment.value !== '';
+    const validations = streetNumberValue !== '' && streetNumberValue.length > 2 && streetNameValue !== '' && streetNameValue.length > 2 && cityValue !== '' && cityValue.length > 2 && codeValue !== '' && codeValue.length > 2 && selectedState && selectedState.value !== '';
     return (
         <div className="App">
             <div className="App-header">
@@ -67,25 +47,22 @@ const PropertyAddress = ({ streetNumber,streetName, city, code,state, employment
             <div className="App-intro">
                
                 <Card>
-                   {businessvalidationFlag === true && <div className="p-col-12 p-md-12">
-                        <Message severity="error" text="Employment type other than employee or provience as Quebec are not allowed" />
-                    </div>}
-                    <Panel header={<b>Property Address</b>}>
+                    <Panel header={<b>Resident Address</b>}>
                         <div className="p-fluid p-formgrid p-grid">
                             <div className="p-field p-col-12 p-md-2">
                                 <label htmlFor="streetNumber">Street Number</label>
-                                <InputText id="streetNumber" type="text" value={streetNumberValue} onChange={(e) => setStreetNumberValue(e.target.value)}/>
+                                <InputText id="streetNumber" type="text"  value={streetNumberValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => {console.log('target',e.target);setStreetNumberValue(e.target.value)}} />
                                 {streetNumberValue && streetNumberValue.length < 3 && <small id="username-help" style={{color:'red'}} >Street Number should have minium 3 charcters.</small>}
                             </div>
                             <div className="p-field p-col-12 p-md-4">
                                 <label htmlFor="streetName">Street Name</label>
-                                <InputText id="streetName" type="text" value={streetNameValue} onChange={(e) => setStreetNameValue(e.target.value)}/>
+                                <InputText id="streetName" type="text" value={streetNameValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setStreetNameValue(e.target.value)}/>
                                 {streetNameValue && streetNameValue.length < 3 && <small id="username-help" style={{color:'red'}} >Street Name should have minium 3 charcters.</small>}
                             </div>
 
                             <div className="p-field p-col-12 p-md-5">
                                 <label htmlFor="city">City</label>
-                                <InputText id="city" type="text" value={cityValue} onChange={(e) => setCityValue(e.target.value)}/>
+                                <InputText id="city" type="text" value={cityValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCityValue(e.target.value)}/>
                                 {cityValue && cityValue.length < 3 && <small id="username-help" style={{color:'red'}} >City should have minium 3 charcters.</small>}
                             </div>
                             <div className="p-field p-col-12 p-md-3">
@@ -94,12 +71,8 @@ const PropertyAddress = ({ streetNumber,streetName, city, code,state, employment
                             </div>
                             <div className="p-field p-col-12 p-md-3">
                                 <label htmlFor="zip">Code</label>
-                                <InputText id="zip" type="text" value={codeValue} onChange={(e) => setCodeValue(e.target.value)}/>
+                                <InputText id="zip" type="text" value={codeValue} onChange={(e:React.ChangeEvent<HTMLInputElement>) => setCodeValue(e.target.value)}/>
                                 {codeValue && codeValue.length < 3 && <small id="username-help" style={{color:'red'}} >Code should have minium 3 charcters.</small>}
-                            </div>
-                            <div className="p-field p-col-12 p-md-3">
-                                <label htmlFor="employment">Employment Type</label>
-                                <Dropdown inputId="employment" value={selectedEmployment} options={employmentTypes} onChange={onEmploymentChange} placeholder="Select" optionLabel="name" />
                             </div>
                         </div>
                     </Panel>
@@ -107,30 +80,28 @@ const PropertyAddress = ({ streetNumber,streetName, city, code,state, employment
                     <Card>
                     <div className="p-grid p-align-end vertical-container">
                         <div className="p-col">
-                            <div className="box"><Button label="Back" icon="" onClick={() => back()} /></div>
+                            <div className="box"></div>
                         </div>
                         <div className="p-col">
                             <div className="box"></div>
                         </div>
                         <div className="p-col">
-                            <div className="box"><Button label="Next" disabled={validations ? false : true} icon={validations ? "pi pi-check" : ""} onClick={() => submitPropertyAddress()} /></div>
+                            <div className="box"><Button label="Next" disabled={validations ? false : true} icon={validations ? "pi pi-check" : ""} onClick={() => submit()} /></div>
                         </div>
                     </div>
-                    
                 </Card>
             </div>
         </div>
     )
 }
 const mapStateToProps = (state) => {
-    console.log(state.propertyAddressReducer)
+    console.log(state.addressReducer)
     return {
-        streetNumber: state.propertyAddressReducer.streetNumber,
-        streetName: state.propertyAddressReducer.streetName,
-        city: state.propertyAddressReducer.city,
-        state: state.propertyAddressReducer.state,
-        code: state.propertyAddressReducer.code,
-        employment: state.propertyAddressReducer.employment
+        streetNumber: state.addressReducer.streetNumber,
+        streetName: state.addressReducer.streetName,
+        city: state.addressReducer.city,
+        state: state.addressReducer.state,
+        code: state.addressReducer.code
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -138,7 +109,7 @@ const mapDispatchToProps = (dispatch) => {
         dispatch: dispatch
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyAddress);
+export default connect(mapStateToProps, mapDispatchToProps)(Address);
 
 
 

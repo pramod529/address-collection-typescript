@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../logo.png';
-import '../App.css';
+import '../App.scss';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';

@@ -8,7 +8,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { InputText } from 'primereact/inputtext';
 import { connect } from 'react-redux'
-import submitEmpAddress from '../action/employmentAddressAction'
+import submitEmpAddress from '../ActionCreators/employmentAddressAction'
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
 import { Dropdown } from 'primereact/dropdown';

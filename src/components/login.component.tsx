@@ -4,7 +4,7 @@ import logo from '../logo.png'
 import '../App.scss';
 
 import { connect } from 'react-redux'
-import submitLogin from '../action/loginAction'
+import submitLogin from '../ActionCreators/loginActionCreator';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';

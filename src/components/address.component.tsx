@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'primereact/button';
-import logo from '../logo.png';
+import logo from '../logo.png'
 import '../App.scss';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -8,7 +8,7 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { InputText } from 'primereact/inputtext';
 import { connect } from 'react-redux'
-import submitAddress from '../action/addressAction'
+import submitAddress from '../ActionCreators/addressAction'
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
 import { Dropdown } from 'primereact/dropdown';

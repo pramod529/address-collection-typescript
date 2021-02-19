@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from  'react-redux'
+import { Provider } from 'react-redux'
 import configureStore from './store/configStore'
+import * as dotenv from 'dotenv';
+
 const store = configureStore();
-console.log(store);
+
+switch (process.env['NODE_ENV']) {
+  case 'development':
+    dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+    break;
+  case 'production':
+    dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+    break;
+  default:
+    dotenv.config({ path: `.env.development` });
+    break;
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <App />
